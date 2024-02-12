@@ -2,6 +2,7 @@ const express=require("express")
 const bcrypt=require("bcryptjs")
 const { genSalt } = require("bcrypt")
 const studentModel = require("../models/studentModel")
+const markmodel=require("../models/marksmodel")
 
 const router=express.Router()
 
@@ -30,6 +31,12 @@ router.post("/addstudent",async(req,res)=>{
 router.get("/viewall",async(req,res)=>{
     let data=await studentModel.find()
     res.json(data)
+})
+
+router.get("/viewmarks",async(req,res)=>{
+    let result=await markmodel.find()
+    .populate().exec()
+    res.json(result)
 })
 
 module.exports=router
